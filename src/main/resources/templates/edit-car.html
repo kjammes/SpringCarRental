@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Add New Car</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" href="#" th:href="@{/}">CarRental</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					
+					<li class="nav-item">
+						<a class="nav-link active" th:href="@{/renter/manage-cars}">Manage Cars</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/renter/add-car}">Add Car</a>
+					</li>
+					
+				</ul>
+			</div>
+			<span sec:authorize="isAuthenticated()">
+				<a class="btn btn-sm btn-danger" th:href="@{/logout}">Logout</a>
+			</span>
+		</div>
+	</nav>
+	<main class="container">
+	
+	<form th:action="@{/renter/save-edit-car/} + ${carObj.getId()}" method="POST" th:object="${car}" class="my-4">
+	
+			<!-- error message -->
+			<div th:if="${param.error}" class="container my-3">
+				<div 
+					class="alert alert-danger"
+					style="text-align: center !important; display: block;">
+					Something went wrong! Please try again.
+				</div>
+			</div>
+
+			<div class="form-group my-3">
+				<label for="model" class="my-2">Model</label> 
+					<input
+					type="text" 
+					class="form-control" 
+					id="model"
+					aria-describedby="emailHelp" 
+					th:field="*{model}"
+					th:placeholder="${carObj.getModel()}"
+					required>
+				<small class="form-text text-muted" th:text="'Current Model Name: ' + ${carObj.getModel()}"></small>
+			</div>
+			<div class="form-group my-3">
+				<label for="carType" class="my-2">Type</label> 
+				<input
+					type="text" 
+					class="form-control" 
+					id="carType"
+					th:field="*{type}"
+					th:placeholder="${carObj.getType()}"
+					required>
+				<small class="form-text text-muted" th:text="'Current Model Name: ' + ${carObj.getType()}"></small>
+			</div>
+			<div class="form-group my-3">
+				<label for="fuel" class="my-2">Fuel</label> 
+				<input
+					type="text" 
+					class="form-control" 
+					id="fuel"
+					th:field="*{fuelType}"
+					th:placeholder="${carObj.getFuelType()}"
+					required>
+				<small class="form-text text-muted" th:text="'Current Model Name: ' + ${carObj.getFuelType()}"></small>
+			</div>
+			<div class="form-group my-3">
+				<label for="mileage" class="my-2">Mileage</label> 
+				<input
+					type="number" 
+					class="form-control" 
+					id="mileage"
+					th:field="*{mileage}"
+					th:placeholder="${carObj.getMileage()}"
+					min="0"
+					step=".01"
+					required>
+				<small class="form-text text-muted" th:text="'Current Mileage: ' + ${carObj.getMileage()}"></small>
+			</div>
+			
+			<button type="SUBMIT" class="btn text-light btn-dark">Save Edit</button>
+		</form>
+		
+	</main>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+		crossorigin="anonymous"></script>
+</body>
+</html>

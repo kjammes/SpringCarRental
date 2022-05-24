@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Home Page</title>
+<title th:if="${authority.equals('ROLE_CUSTOMER')}">Home Page - Renter</title>
+<title th:if="${authority.equals('ROLE_ADMIN')}">Home Page - Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+	crossorigin="anonymous">
+
+</head>
+<body>
+	<!-- Navbar for admin home page -->
+	<nav th:if="${authority.equals('ROLE_ADMIN')}" class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" th:href="@{/admin}">CarRental</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/admin/manage-customers}">Customers</a>
+					</li>
+				
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/admin/manage-renters}">Renters</a>
+					</li>
+					
+				</ul>
+			</div>
+			<span sec:authorize="isAuthenticated()">
+				<a class="btn btn-sm btn-danger" th:href="@{/logout}">Logout</a>
+			</span>
+		</div>
+	</nav>
+	
+	<!-- Navbar for renter home page -->
+	<nav th:if="${authority.equals('ROLE_RENTER')}" class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" th:href="@{/renter}">CarRental</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/renter/manage-cars}">Manage Cars</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/renter/add-car}">Add Car</a>
+					</li>
+					
+				</ul>
+			</div>
+			<span sec:authorize="isAuthenticated()">
+				<a class="btn btn-sm btn-danger" th:href="@{/logout}">Logout</a>
+			</span>
+		</div>
+	</nav>
+	
+	<!-- Navbar for customer home page -->
+	<nav th:if="${authority.equals('ROLE_CUSTOMER')}" class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" th:href="@{/customer}">CarRental</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/customer/rented-cars}">Rented Cars</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/customer/available-cars}">Available Cars</a>
+					</li>
+					
+				</ul>
+			</div>
+			<span sec:authorize="isAuthenticated()">
+				<a class="btn btn-sm btn-danger" th:href="@{/logout}">Logout</a>
+			</span>
+		</div>
+	</nav>
+	
+	<main class="container mt-3">
+		<div class="d-flex flex-row justify-content-between">
+
+			<div
+				class="d-flex flex-column justify-content-center align-content-start"
+				style="margin-bottom: -4rem;">
+				<div>
+					<h1 class="text-dark">Car Rental</h1>
+					<h5 class="text-secondary">
+						This is leading platform for car rental.
+					</h5>
+				</div>
+
+				<p style="max-width: 55ch;">
+					Lorem Ipsum is simply dummy text of
+					the printing and typesetting industry. Lorem Ipsum has been the
+					industry's standard dummy text ever since the 1500s, when an
+					unknown printer took a galley of type and scrambled it to make a
+					type specimen book.
+				</p>
+			</div>
+		</div>
+	</main>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+		crossorigin="anonymous"></script>
+</body>
+</html>
